@@ -19,8 +19,20 @@ class MyAwesomePluginTest : BaseAbstractTest() {
             """
             |/src/main/kotlin/sample/Test.kt
             |package sample
-            |data class TestingIsEasy(val reason: String)
-            """.trimIndent(), configuration
+            | /**
+            |  * A visual illustration brought by Mermaid:
+            |  * ``` mermaid
+            |  * graph TD
+            |  *   A[Christmas] -->|Get money| B(Go shopping)
+            |  *   B --> C{Let me think}
+            |  *   C -->|One| D[Laptop]
+            |  *   C -->|Two| E[iPhone]
+            |  *   C -->|Three| F[fa:fa-car Car]
+            |  * ```
+            |  */
+            |class ChristmasStateMachine
+            """.trimIndent(), configuration,
+            cleanupOutput = false
         ) {
             documentablesTransformationStage = { module ->
                 val testedPackage = module.packages.find { it.name == "sample" }
@@ -28,6 +40,8 @@ class MyAwesomePluginTest : BaseAbstractTest() {
 
                 assertNotNull(testedPackage)
                 assertNotNull(testedClass)
+
+                // TODO: Proper testing...
             }
         }
     }
