@@ -8,7 +8,7 @@ plugins {
     signing
 }
 
-group = "org.example"
+group = "com.glureau"
 version = "1.0-SNAPSHOT"
 
 repositories {

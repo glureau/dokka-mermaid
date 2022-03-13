@@ -1,25 +1,19 @@
-package template
+package com.glureau
 
 import kotlinx.html.FlowContent
 import kotlinx.html.code
 import kotlinx.html.div
 import kotlinx.html.pre
-import org.jetbrains.dokka.CoreExtensions
-import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.renderers.html.HtmlRenderer
 import org.jetbrains.dokka.pages.ContentCodeBlock
 import org.jetbrains.dokka.pages.ContentPage
 import org.jetbrains.dokka.pages.ContentText
 import org.jetbrains.dokka.pages.PageNode
 import org.jetbrains.dokka.plugability.DokkaContext
-import org.jetbrains.dokka.plugability.DokkaPlugin
 
-open class MermaidRenderer(
+open class MermaidHtmlRenderer(
     context: DokkaContext
 ) : HtmlRenderer(context) {
-    init {
-        println("MermaidRenderer")
-    }
 
     override fun buildHtml(page: PageNode, resources: List<String>, content: FlowContent.() -> Unit): String {
         val addedRes: List<String> = listOf(*resources.toTypedArray(),
@@ -29,8 +23,7 @@ open class MermaidRenderer(
         return super.buildHtml(page, addedRes, content)
     }
 
-    override fun kotlinx.html.FlowContent.buildCodeBlock(code: ContentCodeBlock, pageContext: ContentPage) {
-        println("buildCodeBlock - \n\ncode=$code\n\nlanguage=${code.language}\n\npageContext=$pageContext")
+    override fun FlowContent.buildCodeBlock(code: ContentCodeBlock, pageContext: ContentPage) {
         val guessMermaid: Boolean =
             (code.language == "") && ((code.children.firstOrNull() as? ContentText)?.text?.startsWith("graph ") == true)
 
@@ -51,18 +44,5 @@ open class MermaidRenderer(
                 }
             }
         }
-    }
-}
-
-class MyAwesomeDokkaPlugin : DokkaPlugin() {
-
-    private val dokkaBase by lazy { plugin<DokkaBase>() }
-
-    val renderer by extending {
-        CoreExtensions.renderer providing ::MermaidRenderer override dokkaBase.htmlRenderer
-    }
-
-    init {
-        println("AWESOME")
     }
 }

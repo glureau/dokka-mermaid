@@ -4,7 +4,7 @@ import junit.framework.Assert.assertNotNull
 import org.jetbrains.dokka.base.testApi.testRunner.BaseAbstractTest
 import org.junit.Test
 
-class MyAwesomePluginTest : BaseAbstractTest() {
+class MermaidHtmlDokkaPluginTest : BaseAbstractTest() {
     private val configuration = dokkaConfiguration {
         sourceSets {
             sourceSet {

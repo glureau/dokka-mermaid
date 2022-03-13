@@ -1,2 +1,2 @@
-rootProject.name = "awesome-dokka-plugin"
+rootProject.name = "html-markdown-dokka-plugin"
 
