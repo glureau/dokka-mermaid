@@ -13,6 +13,6 @@ class MermaidHtmlDokkaPlugin : DokkaPlugin() {
     }
 
     init {
-        println("AWESOME")
+        println("MermaidHtmlDokkaPlugin installed")
     }
 }
