@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.glureau"
-version = "1.0-SNAPSHOT"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -51,7 +51,7 @@ java {
 
 publishing {
     publications {
-        val dokkaTemplatePlugin by creating(MavenPublication::class) {
+        val htmlMermaidDokkaPlugin by creating(MavenPublication::class) {
             artifactId = project.name
             from(components["java"])
             artifact(javadocJar.get())
@@ -82,12 +82,12 @@ publishing {
                 }
             }
         }
-        signPublicationsIfKeyPresent(dokkaTemplatePlugin)
+        signPublicationsIfKeyPresent(htmlMermaidDokkaPlugin)
     }
 
     repositories {
         maven {
-            url = URI("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            url = URI("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
                 username = System.getenv("SONATYPE_USER")
                 password = System.getenv("SONATYPE_PASSWORD")

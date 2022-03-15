@@ -4,7 +4,7 @@
 
 ```kotlin
 dependencies {
-  dokkaPlugin("com.glureau:html-markdown-dokka-plugin:1.0-SNAPSHOT")
+  dokkaPlugin("com.glureau:html-markdown-dokka-plugin:0.1.0")
 }
 ```
 

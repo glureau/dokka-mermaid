@@ -1,2 +1,2 @@
-rootProject.name = "html-markdown-dokka-plugin"
+rootProject.name = "html-mermaid-dokka-plugin"
 
