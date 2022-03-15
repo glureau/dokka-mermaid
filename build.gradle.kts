@@ -57,9 +57,9 @@ publishing {
             artifact(javadocJar.get())
 
             pom {
-                name.set("Dokka template plugin")
-                description.set("This is a plugin template for Dokka")
-                url.set("https://github.com/Kotlin/dokka-plugin-template/")
+                name.set("Mermaid Html Dokka plugin")
+                description.set("Plugin to support Mermaid.js graphs from HTML renderer")
+                url.set("https://github.com/glureau/dokka-mermaid")
 
                 licenses {
                     license {
@@ -71,16 +71,14 @@ publishing {
 
                 developers {
                     developer {
-                        id.set("JetBrains")
-                        name.set("JetBrains Team")
-                        organization.set("JetBrains")
-                        organizationUrl.set("http://www.jetbrains.com")
+                        id.set("glureau")
+                        name.set("Grégory Lureau")
                     }
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/Kotlin/dokka-plugin-template.git")
-                    url.set("https://github.com/Kotlin/dokka-plugin-template/tree/master")
+                    connection.set("scm:git:git://github.com/glureau/dokka-mermaid.git")
+                    url.set("https://github.com/glureau/dokka-mermaid/tree/master")
                 }
             }
         }
