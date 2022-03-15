@@ -49,18 +49,7 @@ open class MermaidHtmlRenderer(
         "graph LR",
     ).map { Regex(it) }
 
-    override fun buildHtml(page: PageNode, resources: List<String>, content: FlowContent.() -> Unit): String {
-        // TODO: Define a "Style"/script installer like here https://github.com/Kotlin/dokka/blob/c1efae49d5595c79ccbf004ceb6aabd7367ed9de/plugins/versioning/src/main/kotlin/versioning/htmlPreprocessors.kt
-        val addedRes: List<String> = listOf(
-            *resources.toTypedArray(),
-            "https://cdnjs.cloudflare.com/ajax/libs/mermaid/6.0.0/mermaid.css",
-            "https://cdnjs.cloudflare.com/ajax/libs/mermaid/6.0.0/mermaid.js"
-        )
-        return super.buildHtml(page, addedRes, content)
-    }
-
     override fun FlowContent.buildCodeBlock(code: ContentCodeBlock, pageContext: ContentPage) {
-        // TODO: Understand why language is not filled with "mermaid" in the unit test
         var isMermaidGraph = code.language == "mermaid"
         if (!isMermaidGraph && code.language == "") { // Trying to guess if it's actually a Mermaid graph
             val firstLine = (code.children.firstOrNull() as? ContentText)?.text?.trim()

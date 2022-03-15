@@ -3,13 +3,13 @@ import java.net.URI
 
 plugins {
     kotlin("jvm") version "1.5.0"
-    id("org.jetbrains.dokka") version "1.5.0" // Used to create a javadoc jar
+    id("org.jetbrains.dokka") version "1.6.0" // Used to create a javadoc jar
     `maven-publish`
     signing
 }
 
 group = "com.glureau"
-version = "0.1.0"
+version = "0.1.1"
 
 repositories {
     mavenCentral()
@@ -21,7 +21,7 @@ dependencies {
     implementation(kotlin("stdlib"))
     compileOnly("org.jetbrains.dokka:dokka-core:$dokkaVersion")
     implementation("org.jetbrains.dokka:dokka-base:$dokkaVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.3")
 
     testImplementation(kotlin("test-junit"))
     testImplementation("org.jetbrains.dokka:dokka-test-api:$dokkaVersion")
