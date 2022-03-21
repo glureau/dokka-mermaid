@@ -31,7 +31,6 @@ class MermaidHtmlDokkaPlugin : DokkaPlugin() {
 
 class MermaidInstaller(private val dokkaContext: DokkaContext) : PageTransformer {
     private val components = listOf(
-        "mermaid.css",
         "mermaid.js",
     )
 

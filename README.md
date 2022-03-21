@@ -4,7 +4,7 @@
 
 ```kotlin
 dependencies {
-  dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.2.0")
+  dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.2.1")
 }
 ```
 

@@ -3,13 +3,13 @@ import java.net.URI
 
 plugins {
     kotlin("jvm") version "1.5.0"
-    id("org.jetbrains.dokka") version "1.6.0" // Used to create a javadoc jar
+    id("org.jetbrains.dokka") version "1.6.10" // Used to create a javadoc jar
     `maven-publish`
     signing
 }
 
 group = "com.glureau"
-version = "0.2.0"
+version = "0.2.1"
 
 repositories {
     mavenCentral()
@@ -97,17 +97,19 @@ publishing {
 }
 
 fun Project.signPublicationsIfKeyPresent(publication: MavenPublication) {
+    // TODO: Clean signature mechanism when it's stable.
+    /*
     val signingKeyId: String? = System.getenv("SIGN_KEY_ID")
     val signingKey: String? = System.getenv("SIGN_KEY")
     val signingKeyPassphrase: String? = System.getenv("SIGN_KEY_PASSPHRASE")
-
-    if (!signingKey.isNullOrBlank()) {
+    */
+    if (true) { //!signingKey.isNullOrBlank()) {
         extensions.configure<SigningExtension>("signing") {
-            if (signingKeyId?.isNotBlank() == true) {
+            /*if (signingKeyId?.isNotBlank() == true) {
                 useInMemoryPgpKeys(signingKeyId, signingKey, signingKeyPassphrase)
             } else {
                 useInMemoryPgpKeys(signingKey, signingKeyPassphrase)
-            }
+            }*/
             sign(publication)
         }
     }
