@@ -3,6 +3,7 @@ package com.glureau
 import kotlinx.html.FlowContent
 import kotlinx.html.code
 import kotlinx.html.div
+import kotlinx.html.id
 import kotlinx.html.pre
 import org.jetbrains.dokka.base.renderers.html.HtmlRenderer
 import org.jetbrains.dokka.pages.ContentCodeBlock
@@ -57,8 +58,10 @@ open class MermaidHtmlRenderer(
                 isMermaidGraph = mermaidDetectionList.any { it.matches(firstLine) }
             }
         }
+        println("isMermaidGraph=$isMermaidGraph")
         if (isMermaidGraph) {
             div("sample-container") {
+                id = "greg" // TODO: to be cleaned
                 div("mermaid") {
                     +code.children.filterIsInstance<ContentText>().joinToString("\n") { it.text }
                 }
