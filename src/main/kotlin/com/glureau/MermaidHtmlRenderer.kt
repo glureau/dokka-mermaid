@@ -5,11 +5,11 @@ import kotlinx.html.code
 import kotlinx.html.div
 import kotlinx.html.id
 import kotlinx.html.pre
+import kotlinx.html.script
 import org.jetbrains.dokka.base.renderers.html.HtmlRenderer
 import org.jetbrains.dokka.pages.ContentCodeBlock
 import org.jetbrains.dokka.pages.ContentPage
 import org.jetbrains.dokka.pages.ContentText
-import org.jetbrains.dokka.pages.PageNode
 import org.jetbrains.dokka.plugability.DokkaContext
 
 open class MermaidHtmlRenderer(
@@ -60,11 +60,28 @@ open class MermaidHtmlRenderer(
         }
         println("isMermaidGraph=$isMermaidGraph")
         if (isMermaidGraph) {
+            val graphDef = code.children.filterIsInstance<ContentText>().joinToString("\n") { it.text }
             div("sample-container") {
-                id = "greg" // TODO: to be cleaned
-                div("mermaid") {
-                    +code.children.filterIsInstance<ContentText>().joinToString("\n") { it.text }
+                div {
+                    id = "mermaid-container"
                 }
+                div {
+                    id = "mermaid-target"
+                }
+            }
+            script {
+                +"""
+                    |window.addEventListener('load', function() {
+                    |  var graphDef =  `$graphDef`;
+                    |  var cb = function(svgGraph) {
+                    |    var container = document.getElementById('mermaid-container');
+                    |    console.log(svgGraph);
+                    |    console.log(container);
+                    |    container.innerHTML = svgGraph;
+                    |  };
+                    |  mermaid.mermaidAPI.render('mermaid-target', graphDef, cb);
+                    |});
+                    """.trimMargin()
             }
         } else {
             // TODO: Original code from HtmlRenderer, no idea how to override and use super of a member extension function...
