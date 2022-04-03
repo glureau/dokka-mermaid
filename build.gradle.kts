@@ -58,7 +58,7 @@ task("mergeJs") {
     val dir = rootDir.path + "/src/main/js"
     File(rootDir.path + "/src/main/resources/dokka/dokka-mermaid.js").writeText(
         File(dir + "/mermaid.min.js").readText() + "\n" +
-                File(dir + "/glureau.js").readText()
+                File(dir + "/extras.js").readText()
     )
 }
 
