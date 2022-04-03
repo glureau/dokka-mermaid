@@ -42,6 +42,7 @@ class CompositeSubscription
 `./gradlew dokkaHtml`
 
 ![img.png](doc/img.png)
+<<<<<<< HEAD
 
 # Theming & customization
 
@@ -82,3 +83,5 @@ graph TD
     G
   end
 ```
+=======
+>>>>>>> main
