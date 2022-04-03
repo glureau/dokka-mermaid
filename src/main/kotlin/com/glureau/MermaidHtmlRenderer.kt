@@ -12,6 +12,8 @@ import org.jetbrains.dokka.pages.ContentCodeBlock
 import org.jetbrains.dokka.pages.ContentPage
 import org.jetbrains.dokka.pages.ContentText
 import org.jetbrains.dokka.plugability.DokkaContext
+import kotlin.math.absoluteValue
+import kotlin.random.Random
 
 open class MermaidHtmlRenderer(
     context: DokkaContext
@@ -59,17 +61,16 @@ open class MermaidHtmlRenderer(
                 isMermaidGraph = mermaidDetectionList.any { it.matches(firstLine) }
             }
         }
-        println("isMermaidGraph=$isMermaidGraph")
         if (isMermaidGraph) {
             val graphDef = code.children.filterIsInstance<ContentText>()
                 .joinToString("\n") { it.text }
                 .replace("\"", "\\\"")
+            val rand = Random.nextLong().absoluteValue.toString(32)
+            val mermaidContainerId = "mermaid-container-$rand"
+            val mermaidTargetId = "mermaid-target-$rand"
             div("sample-container") {
                 div {
-                    id = "mermaid-container"
-                }
-                div {
-                    id = "mermaid-target"
+                    id = mermaidContainerId
                 }
             }
             val defaultTheme = "default"
@@ -80,29 +81,26 @@ open class MermaidHtmlRenderer(
                     |
                     |window.addEventListener('load', function() {
                     |  var graphDef =  `$graphDef`;
-                    |  var cb = function(svgGraph) {
-                    |    var container = document.getElementById('mermaid-container');
-                    |    console.log(svgGraph);
-                    |    console.log(container);
+                    |  var container = document.getElementById('$mermaidContainerId');
+                    |  container.innerHTML = '<div id="$mermaidTargetId"></div>';
+                    |  var cb$rand = function(svgGraph) {
                     |    container.innerHTML = svgGraph;
+                    |    // Trick to make the graph takes only the required height.
+                    |    document.getElementById('$mermaidTargetId').removeAttribute('height')
                     |  };
-                    |  var currentThemeIsDark = document.getElementsByClassName('theme-dark').length > 0;
-                    |  var theme = '$defaultTheme';
-                    |  if (currentThemeIsDark) {
-                    |    theme = '$darkTheme';
+                    |  var updateGraph$rand = function(isDarkMode) {
+                    |    var theme = '$defaultTheme';
+                    |    if (isDarkMode) {
+                    |      theme = '$darkTheme';
+                    |    }
+                    |    mermaid.initialize({'theme': theme});
+                    |    mermaid.mermaidAPI.render('$mermaidTargetId', graphDef, cb$rand);
                     |  }
-                    |  mermaid.initialize({'theme': theme});
-                    |  mermaid.mermaidAPI.render('mermaid-target', graphDef, cb);
+                    |  updateGraph$rand(document.getElementsByClassName('theme-dark').length > 0);
                     |  
                     |  var themeToggleButton = document.getElementById('theme-toggle-button');
                     |  themeToggleButton.addEventListener('click', () => {
-                    |    if (theme == '$defaultTheme') {
-                    |      theme = '$darkTheme';
-                    |    } else {
-                    |      theme = '$defaultTheme';
-                    |    }
-                    |    mermaid.initialize({'theme': theme});
-                    |    mermaid.mermaidAPI.render('mermaid-target', graphDef, cb);
+                    |    updateGraph$rand(document.getElementsByClassName('theme-dark').length == 0);
                     |  });
                     |});
                     """.trimMargin()
