@@ -1,4 +1,3 @@
 /build/
 /.gradle/
 /.idea
-/src/main/resources/dokka/dokka-mermaid.js
