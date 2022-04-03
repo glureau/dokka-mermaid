@@ -4,7 +4,7 @@ import org.jetbrains.dokka.base.testApi.testRunner.BaseAbstractTest
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class MermaidHtmlDokkaPluginTest : BaseAbstractTest() {
+class HtmlMermaidDokkaPluginTest : BaseAbstractTest() {
     private val configuration = dokkaConfiguration {
         sourceSets {
             sourceSet {

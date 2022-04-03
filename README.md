@@ -4,7 +4,7 @@
 
 ```kotlin
 dependencies {
-  dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.1.1")
+  dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.2.2")
 }
 ```
 
@@ -42,3 +42,46 @@ class CompositeSubscription
 `./gradlew dokkaHtml`
 
 ![img.png](doc/img.png)
+<<<<<<< HEAD
+
+# Theming & customization
+
+By default, the [Mermaid themes](https://github.com/mermaid-js/mermaid/blob/develop/docs/theming.md#deployable-themes) used are `default` and `dark`, but you can override themes globally with:
+
+```kotlin
+tasks.dokkaHtmlMultiModule {
+    pluginsMapConfiguration.set(
+        mapOf(
+            "com.glureau.HtmlMermaidDokkaPlugin" to """
+                {
+                    "lightTheme": "forest",
+                    "darkTheme": "dark"
+                }
+            """.trimIndent()
+        )
+    )
+}
+```
+
+You can also specify the theme by graph, with the `%%{init: ...}%%` block ([documentation](https://github.com/mermaid-js/mermaid/blob/develop/docs/theming.md#customizing-themes--with-themevariables)).
+
+For example with `%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#DD0000'}}}%%`
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#DD0000'}}}%%
+graph TD
+  A[Christmas] -->|Get money| B(Go shopping)
+  B --> C{Let me think}
+  B --> G[/Another/]
+  C ==>|One| D[Laptop]
+  C -->|Two| E[iPhone]
+  C -->|Three| F[fa:fa-car Car]
+  subgraph section
+    C
+    D
+    E
+    F
+    G
+  end
+```
+=======
+>>>>>>> main

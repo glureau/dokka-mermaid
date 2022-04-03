@@ -3,13 +3,13 @@ import java.net.URI
 
 plugins {
     kotlin("jvm") version "1.5.0"
-    id("org.jetbrains.dokka") version "1.6.10" // Used to create a javadoc jar
+    id("org.jetbrains.dokka") version "1.6.0" // Used to create a javadoc jar
     `maven-publish`
     signing
 }
 
 group = "com.glureau"
-version = "0.2.1"
+version = "0.2.2"
 
 repositories {
     mavenCentral()
@@ -47,6 +47,19 @@ val javadocJar by tasks.registering(Jar::class) {
 
 java {
     withSourcesJar()
+}
+
+/**
+ * As we've multiple js files and they are loaded asynchronously by Dokka,
+ * we can't change the execution order. As we need to change the mermaid initialize parameters,
+ * we need to merge those js files automatically.
+ */
+task("mergeJs") {
+    val dir = rootDir.path + "/src/main/js"
+    File(rootDir.path + "/src/main/resources/dokka/dokka-mermaid.js").writeText(
+        File(dir + "/mermaid.min.js").readText() + "\n" +
+                File(dir + "/extras.js").readText()
+    )
 }
 
 publishing {

@@ -3,16 +3,21 @@ package com.glureau
 import kotlinx.html.FlowContent
 import kotlinx.html.code
 import kotlinx.html.div
+import kotlinx.html.id
 import kotlinx.html.pre
+import kotlinx.html.script
+import kotlinx.html.unsafe
 import org.jetbrains.dokka.base.renderers.html.HtmlRenderer
 import org.jetbrains.dokka.pages.ContentCodeBlock
 import org.jetbrains.dokka.pages.ContentPage
 import org.jetbrains.dokka.pages.ContentText
-import org.jetbrains.dokka.pages.PageNode
 import org.jetbrains.dokka.plugability.DokkaContext
+import kotlin.math.absoluteValue
+import kotlin.random.Random
 
 open class MermaidHtmlRenderer(
-    context: DokkaContext
+    context: DokkaContext,
+    private val config: HtmlMermaidConfiguration?
 ) : HtmlRenderer(context) {
 
     private val mermaidDetectionList = listOf(
@@ -58,9 +63,53 @@ open class MermaidHtmlRenderer(
             }
         }
         if (isMermaidGraph) {
+            val graphDef = code.children.filterIsInstance<ContentText>()
+                .joinToString("\n") { it.text }
+                .replace("\"", "\\\"")
+            val rand = Random.nextLong().absoluteValue.toString(32)
+            val mermaidContainerId = "mermaid-container-$rand"
+            val mermaidTargetId = "mermaid-target-$rand"
             div("sample-container") {
-                div("mermaid") {
-                    +code.children.filterIsInstance<ContentText>().joinToString("\n") { it.text }
+                div {
+                    id = mermaidContainerId
+                }
+            }
+            script {
+                unsafe {
+                    +"""
+                    |
+                    |window.addEventListener('load', function() {
+                    |  var graphDef =  `$graphDef`;
+                    |  var container = document.getElementById('$mermaidContainerId');
+                    |  container.innerHTML = '<div id="$mermaidTargetId"></div>';
+                    |  var cb$rand = function(svgGraph) {
+                    |    container.innerHTML = svgGraph;
+                    |    // Trick to make the graph takes only the required height.
+                    |    document.getElementById('$mermaidTargetId').removeAttribute('height')
+                    |  };
+                    |  var updateGraph$rand = function() {
+                    |    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
+                    |    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
+                    |    setTimeout(() => {
+                    |      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
+                    |      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
+                    |      var theme = '${config.defaultTheme()}';
+                    |      if (isDarkMode === true) {
+                    |        theme = '${config.darkTheme()}';
+                    |      }
+                    |      mermaid.initialize({'theme': theme});
+                    |      mermaid.mermaidAPI.render('$mermaidTargetId', graphDef, cb$rand);
+                    |    }, 0);
+                    |  }
+                    |  updateGraph$rand();
+                    |  
+                    |  var themeToggleButton = document.getElementById('theme-toggle-button');
+                    |  themeToggleButton.addEventListener('click', () => {
+                    |    // This detection mechanism is shitty, please tell me if you know better.
+                    |    updateGraph$rand();
+                    |  });
+                    |});
+                    """.trimMargin()
                 }
             }
         } else {
