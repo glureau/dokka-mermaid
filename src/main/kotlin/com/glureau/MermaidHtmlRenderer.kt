@@ -6,6 +6,7 @@ import kotlinx.html.div
 import kotlinx.html.id
 import kotlinx.html.pre
 import kotlinx.html.script
+import kotlinx.html.unsafe
 import org.jetbrains.dokka.base.renderers.html.HtmlRenderer
 import org.jetbrains.dokka.pages.ContentCodeBlock
 import org.jetbrains.dokka.pages.ContentPage
@@ -60,7 +61,9 @@ open class MermaidHtmlRenderer(
         }
         println("isMermaidGraph=$isMermaidGraph")
         if (isMermaidGraph) {
-            val graphDef = code.children.filterIsInstance<ContentText>().joinToString("\n") { it.text }
+            val graphDef = code.children.filterIsInstance<ContentText>()
+                .joinToString("\n") { it.text }
+                .replace("\"", "\\\"")
             div("sample-container") {
                 div {
                     id = "mermaid-container"
@@ -69,8 +72,12 @@ open class MermaidHtmlRenderer(
                     id = "mermaid-target"
                 }
             }
+            val defaultTheme = "default"
+            val darkTheme = "dark"
             script {
-                +"""
+                unsafe {
+                    +"""
+                    |
                     |window.addEventListener('load', function() {
                     |  var graphDef =  `$graphDef`;
                     |  var cb = function(svgGraph) {
@@ -79,9 +86,27 @@ open class MermaidHtmlRenderer(
                     |    console.log(container);
                     |    container.innerHTML = svgGraph;
                     |  };
+                    |  var currentThemeIsDark = document.getElementsByClassName('theme-dark').length > 0;
+                    |  var theme = '$defaultTheme';
+                    |  if (currentThemeIsDark) {
+                    |    theme = '$darkTheme';
+                    |  }
+                    |  mermaid.initialize({'theme': theme});
                     |  mermaid.mermaidAPI.render('mermaid-target', graphDef, cb);
+                    |  
+                    |  var themeToggleButton = document.getElementById('theme-toggle-button');
+                    |  themeToggleButton.addEventListener('click', () => {
+                    |    if (theme == '$defaultTheme') {
+                    |      theme = '$darkTheme';
+                    |    } else {
+                    |      theme = '$defaultTheme';
+                    |    }
+                    |    mermaid.initialize({'theme': theme});
+                    |    mermaid.mermaidAPI.render('mermaid-target', graphDef, cb);
+                    |  });
                     |});
                     """.trimMargin()
+                }
             }
         } else {
             // TODO: Original code from HtmlRenderer, no idea how to override and use super of a member extension function...
