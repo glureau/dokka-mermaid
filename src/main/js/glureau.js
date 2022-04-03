@@ -1,3 +1,1 @@
-mermaid.initialize({
-    startOnLoad: false
-})
+mermaid.initialize({ startOnLoad: false })

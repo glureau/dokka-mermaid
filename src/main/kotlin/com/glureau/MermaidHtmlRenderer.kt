@@ -16,7 +16,8 @@ import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 open class MermaidHtmlRenderer(
-    context: DokkaContext
+    context: DokkaContext,
+    private val config: HtmlMermaidConfiguration?
 ) : HtmlRenderer(context) {
 
     private val mermaidDetectionList = listOf(
@@ -73,8 +74,6 @@ open class MermaidHtmlRenderer(
                     id = mermaidContainerId
                 }
             }
-            val defaultTheme = "default"
-            val darkTheme = "dark"
             script {
                 unsafe {
                     +"""
@@ -88,19 +87,26 @@ open class MermaidHtmlRenderer(
                     |    // Trick to make the graph takes only the required height.
                     |    document.getElementById('$mermaidTargetId').removeAttribute('height')
                     |  };
-                    |  var updateGraph$rand = function(isDarkMode) {
-                    |    var theme = '$defaultTheme';
-                    |    if (isDarkMode) {
-                    |      theme = '$darkTheme';
-                    |    }
-                    |    mermaid.initialize({'theme': theme});
-                    |    mermaid.mermaidAPI.render('$mermaidTargetId', graphDef, cb$rand);
+                    |  var updateGraph$rand = function() {
+                    |    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
+                    |    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
+                    |    setTimeout(() => {
+                    |      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
+                    |      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
+                    |      var theme = '${config.defaultTheme()}';
+                    |      if (isDarkMode === true) {
+                    |        theme = '${config.darkTheme()}';
+                    |      }
+                    |      mermaid.initialize({'theme': theme});
+                    |      mermaid.mermaidAPI.render('$mermaidTargetId', graphDef, cb$rand);
+                    |    }, 0);
                     |  }
-                    |  updateGraph$rand(document.getElementsByClassName('theme-dark').length > 0);
+                    |  updateGraph$rand();
                     |  
                     |  var themeToggleButton = document.getElementById('theme-toggle-button');
                     |  themeToggleButton.addEventListener('click', () => {
-                    |    updateGraph$rand(document.getElementsByClassName('theme-dark').length == 0);
+                    |    // This detection mechanism is shitty, please tell me if you know better.
+                    |    updateGraph$rand();
                     |  });
                     |});
                     """.trimMargin()
