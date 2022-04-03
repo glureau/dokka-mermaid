@@ -1,4 +1,4 @@
-# Mermaid Html Dokka plugin
+# Html [Mermaid](https://mermaid-js.github.io/mermaid/#/) Dokka plugin
 
 ## Step 1: install
 
@@ -8,7 +8,9 @@ dependencies {
 }
 ```
 
-## Step 2: put your Mermaid graphs in your code comments.
+## Step 2: write [Mermaid](https://mermaid-js.github.io/mermaid/#/) graphs
+
+You can write them on markdown files for [modules/packages](https://kotlinlang.org/docs/kotlin-doc.html#module-and-package-documentation) or directly from any comment in your code.
 
 ```kotlin
     /**
@@ -33,16 +35,15 @@ gantt
     Task in sec      :2014-01-12  , 12d
     another task      : 24d
     * ```
-*/
+    */
 class CompositeSubscription
 ```
 
 ## Step 3: enjoy your Dokka documentation
 
-`./gradlew dokkaHtml`
+`./gradlew dokkaHtml` or `./gradlew dokkaHtmlMultiModule` ->
 
 ![img.png](doc/img.png)
-<<<<<<< HEAD
 
 # Theming & customization
 
@@ -63,7 +64,7 @@ tasks.dokkaHtmlMultiModule {
 }
 ```
 
-You can also specify the theme by graph, with the `%%{init: ...}%%` block ([documentation](https://github.com/mermaid-js/mermaid/blob/develop/docs/theming.md#customizing-themes--with-themevariables)).
+You can also specify the theme for each graph, with the `%%{init: ...}%%` block ([documentation](https://github.com/mermaid-js/mermaid/blob/develop/docs/theming.md#customizing-themes--with-themevariables)).
 
 For example with `%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#DD0000'}}}%%`
 ```mermaid
@@ -83,5 +84,3 @@ graph TD
     G
   end
 ```
-=======
->>>>>>> main
