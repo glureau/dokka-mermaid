@@ -1,12 +1,20 @@
 # Html [Mermaid](https://mermaid-js.github.io/mermaid/#/) Dokka plugin
 
+
+| Mermaid-Dokka |                              MermaidJS                              |
+|:-------------:|:-------------------------------------------------------------------:|
+|     0.2.2     | [8.14.0](https://github.com/mermaid-js/mermaid/releases/tag/8.14.0) |
+|     0.3.0     |  [9.0.0](https://github.com/mermaid-js/mermaid/releases/tag/9.0.0)  |
+
+
 ## Step 1: install
 
 ```kotlin
 dependencies {
-  dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.2.2")
+  dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.3.0")
 }
 ```
+
 
 ## Step 2: write [Mermaid](https://mermaid-js.github.io/mermaid/#/) graphs
 
