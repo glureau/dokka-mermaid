@@ -6,13 +6,14 @@
 |     0.2.2     | [8.14.0](https://github.com/mermaid-js/mermaid/releases/tag/8.14.0) |
 |     0.3.0     |  [9.0.0](https://github.com/mermaid-js/mermaid/releases/tag/9.0.0)  |
 |     0.3.1     |  [9.1.0](https://github.com/mermaid-js/mermaid/releases/tag/9.1.0)  |
+|     0.3.2     |  [9.1.2](https://github.com/mermaid-js/mermaid/releases/tag/9.1.2)  |
 
 
 ## Step 1: install
 
 ```kotlin
 dependencies {
-  dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.3.1")
+  dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.3.2")
 }
 ```
 
