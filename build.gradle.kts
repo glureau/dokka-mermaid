@@ -2,14 +2,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
 plugins {
-    kotlin("jvm") version "1.5.0"
-    id("org.jetbrains.dokka") version "1.6.0" // Used to create a javadoc jar
+    kotlin("jvm") version "1.7.20"
+    id("org.jetbrains.dokka") version "1.7.20"
     `maven-publish`
     signing
 }
 
 group = "com.glureau"
-version = "0.3.3"
+version = "0.4.0"
 
 repositories {
     mavenCentral()
