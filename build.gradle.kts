@@ -110,18 +110,12 @@ publishing {
 }
 
 fun Project.signPublicationsIfKeyPresent(publication: MavenPublication) {
-    // TODO: Clean signature mechanism when it's stable.
-    val signingKeyId: String? = System.getenv("SIGN_KEY_ID")
     val signingKey: String? = System.getenv("SIGN_KEY")
     val signingKeyPassphrase: String? = System.getenv("SIGN_KEY_PASSPHRASE")
 
     if (!signingKey.isNullOrBlank()) {
         extensions.configure<SigningExtension>("signing") {
-            if (signingKeyId?.isNotBlank() == true) {
-                useInMemoryPgpKeys(signingKeyId, signingKey, signingKeyPassphrase)
-            } else {
-                useInMemoryPgpKeys(signingKey, signingKeyPassphrase)
-            }
+            useInMemoryPgpKeys(signingKey, signingKeyPassphrase)
             sign(publication)
         }
     }
