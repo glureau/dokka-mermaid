@@ -1,19 +1,20 @@
 # Html [Mermaid](https://mermaid-js.github.io/mermaid/#/) Dokka plugin
 
-| Mermaid-Dokka | Dokka  |                              MermaidJS                              |
-|:-------------:|:------:|:-------------------------------------------------------------------:|
+| Mermaid-Dokka | Dokka  | MermaidJS                                                           |
+|:-------------:|:------:|:--------------------------------------------------------------------|
 |     0.2.2     | 1.6.0  | [8.14.0](https://github.com/mermaid-js/mermaid/releases/tag/8.14.0) |
-|     0.3.0     | 1.6.0  |  [9.0.0](https://github.com/mermaid-js/mermaid/releases/tag/9.0.0)  |
-|     0.3.1     | 1.6.0  |  [9.1.0](https://github.com/mermaid-js/mermaid/releases/tag/9.1.0)  |
-|     0.3.2     | 1.6.0  |  [9.1.2](https://github.com/mermaid-js/mermaid/releases/tag/9.1.2)  |
-|     0.3.3     | 1.6.0  |  [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/9.1.7)  |
-|     0.4.0     | 1.7.20 |  [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/9.1.7)  |
+|     0.3.0     | 1.6.0  | [9.0.0](https://github.com/mermaid-js/mermaid/releases/tag/9.0.0)   |
+|     0.3.1     | 1.6.0  | [9.1.0](https://github.com/mermaid-js/mermaid/releases/tag/9.1.0)   |
+|     0.3.2     | 1.6.0  | [9.1.2](https://github.com/mermaid-js/mermaid/releases/tag/9.1.2)   |
+|     0.3.3     | 1.6.0  | [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/v9.1.7)  |
+|     0.4.0     | 1.7.20 | [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/v9.1.7)  |
+|     0.4.1     | 1.7.20 | [9.2.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.2.0)  |
 
 ## Step 1: install
 
 ```kotlin
 dependencies {
-    dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.0")
+    dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.1")
 }
 ```
 
@@ -34,20 +35,25 @@ any comment in your code.
  *   C -->|Two| E[iPhone]
  *   C -->|Three| F[fa:fa-car Car]
  * ```
- * another one
- * ```mermaid
+
+* another one
+* ```mermaid
+
 gantt
 title A Gantt Diagram
-dateFormat  YYYY-MM-DD
+dateFormat YYYY-MM-DD
 section Section
 A task           :a1, 2014-01-01, 30d
-Another task     :after a1  , 20d
+Another task     :after a1 , 20d
 section Another
-Task in sec      :2014-01-12  , 12d
+Task in sec      :2014-01-12 , 12d
 another task      : 24d
- * ```
- */
+
+* ```
+
+*/
 class CompositeSubscription
+
 ```
 
 ## Step 3: enjoy your Dokka documentation
