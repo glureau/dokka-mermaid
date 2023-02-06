@@ -10,7 +10,7 @@
 |     0.4.0     | 1.7.20 | [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/v9.1.7)  |
 |     0.4.1     | 1.7.20 | [9.2.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.2.0)  |
 |     0.4.2     | 1.7.20 | [9.2.2](https://github.com/mermaid-js/mermaid/releases/tag/v9.2.2)  |
-|     0.4.3     | 1.7.20 | [9.3.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.3.0)  |
+|     0.4.4     | 1.7.20 | [9.3.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.3.0)  |
 
 ## Step 1: install
 
