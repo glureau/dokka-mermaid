@@ -66,7 +66,7 @@ publishing {
     publications {
         val htmlMermaidDokkaPlugin by creating(MavenPublication::class) {
             artifactId = project.name
-            from(components["java"])
+            from(components["kotlin"])
             artifact(javadocJar.get())
 
             pom {
