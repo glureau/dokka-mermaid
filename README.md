@@ -1,17 +1,18 @@
 # Html [Mermaid](https://mermaid-js.github.io/mermaid/#/) Dokka plugin
 
-| Mermaid-Dokka | Dokka  | MermaidJS                                                           |
-|:-------------:|:------:|:--------------------------------------------------------------------|
-|     0.2.2     | 1.6.0  | [8.14.0](https://github.com/mermaid-js/mermaid/releases/tag/8.14.0) |
-|     0.3.0     | 1.6.0  | [9.0.0](https://github.com/mermaid-js/mermaid/releases/tag/9.0.0)   |
-|     0.3.1     | 1.6.0  | [9.1.0](https://github.com/mermaid-js/mermaid/releases/tag/9.1.0)   |
-|     0.3.2     | 1.6.0  | [9.1.2](https://github.com/mermaid-js/mermaid/releases/tag/9.1.2)   |
-|     0.3.3     | 1.6.0  | [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/v9.1.7)  |
-|     0.4.0     | 1.7.20 | [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/v9.1.7)  |
-|     0.4.1     | 1.7.20 | [9.2.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.2.0)  |
-|     0.4.2     | 1.7.20 | [9.2.2](https://github.com/mermaid-js/mermaid/releases/tag/v9.2.2)  |
-|     0.4.4     | 1.7.20 | [9.3.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.3.0)  |
-|     0.4.5     | 1.7.20 | [9.4.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.4.0)  |
+| Mermaid-Dokka | Dokka  | MermaidJS                                                            |
+|:-------------:|:------:|:---------------------------------------------------------------------|
+|     0.2.2     | 1.6.0  | [8.14.0](https://github.com/mermaid-js/mermaid/releases/tag/8.14.0)  |
+|     0.3.0     | 1.6.0  | [9.0.0](https://github.com/mermaid-js/mermaid/releases/tag/9.0.0)    |
+|     0.3.1     | 1.6.0  | [9.1.0](https://github.com/mermaid-js/mermaid/releases/tag/9.1.0)    |
+|     0.3.2     | 1.6.0  | [9.1.2](https://github.com/mermaid-js/mermaid/releases/tag/9.1.2)    |
+|     0.3.3     | 1.6.0  | [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/v9.1.7)   |
+|     0.4.0     | 1.7.20 | [9.1.7](https://github.com/mermaid-js/mermaid/releases/tag/v9.1.7)   |
+|     0.4.1     | 1.7.20 | [9.2.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.2.0)   |
+|     0.4.2     | 1.7.20 | [9.2.2](https://github.com/mermaid-js/mermaid/releases/tag/v9.2.2)   |
+|     0.4.4     | 1.7.20 | [9.3.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.3.0)   |
+|     0.4.5     | 1.7.20 | [9.4.0](https://github.com/mermaid-js/mermaid/releases/tag/v9.4.0)   |
+|     0.4.6     | 1.7.20 | [10.2.0](https://github.com/mermaid-js/mermaid/releases/tag/v10.2.0) |
 
 ## Step 1: install
 
