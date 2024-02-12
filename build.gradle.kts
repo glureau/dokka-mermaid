@@ -1,3 +1,4 @@
+import org.gradle.api.plugins.internal.DefaultAdhocSoftwareComponent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
@@ -9,7 +10,7 @@ plugins {
 }
 
 group = "com.glureau"
-version = "0.4.6"
+version = "0.4.7"
 
 repositories {
     mavenCentral()
@@ -66,7 +67,7 @@ publishing {
     publications {
         val htmlMermaidDokkaPlugin by creating(MavenPublication::class) {
             artifactId = project.name
-            from(components["kotlin"])
+            from(components["java"])
             artifact(javadocJar.get())
 
             pom {
