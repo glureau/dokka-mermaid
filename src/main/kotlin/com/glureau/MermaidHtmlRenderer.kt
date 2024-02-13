@@ -58,6 +58,14 @@ open class MermaidHtmlRenderer(
         "graph BT",
         "graph RL",
         "graph LR",
+
+        "C4Context",
+        "mindmap",
+        "timeline",
+        "zenuml",
+        "sankey-beta",
+        "xychart-beta",
+        "block-beta",
     )
 
     override fun FlowContent.buildCodeBlock(code: ContentCodeBlock, pageContext: ContentPage) {
@@ -88,11 +96,6 @@ open class MermaidHtmlRenderer(
                     |  var graphDef =  `$graphDef`;
                     |  var container = document.getElementById('$mermaidContainerId');
                     |  container.innerHTML = '<div id="$mermaidTargetId"></div>';
-                    |  var cb$rand = function(svgGraph) {
-                    |    container.innerHTML = svgGraph;
-                    |    // Trick to make the graph takes only the required height.
-                    |    document.getElementById('$mermaidTargetId').removeAttribute('height')
-                    |  };
                     |  var updateGraph$rand = function() {
                     |    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
                     |    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
@@ -104,14 +107,18 @@ open class MermaidHtmlRenderer(
                     |        theme = '${config.darkTheme()}';
                     |      }
                     |      mermaid.initialize({'theme': theme});
-                    |      mermaid.mermaidAPI.render('$mermaidTargetId', graphDef, cb$rand);
+                    |      mermaid.render('$mermaidTargetId', graphDef).then(({ svg, bindFunctions }) => {
+                    |          container.innerHTML = svg;
+                    |          // Trick to make the graph takes only the required height.
+                    |          document.getElementById('$mermaidTargetId').removeAttribute('height')
+                    |          bindFunctions?.(element);
+                    |      });
                     |    }, 0);
                     |  }
                     |  updateGraph$rand();
                     |  
                     |  var themeToggleButton = document.getElementById('theme-toggle-button');
                     |  themeToggleButton.addEventListener('click', () => {
-                    |    // This detection mechanism is shitty, please tell me if you know better.
                     |    updateGraph$rand();
                     |  });
                     |});
