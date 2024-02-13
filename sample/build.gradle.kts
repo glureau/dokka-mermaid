@@ -9,5 +9,5 @@ repositories {
 }
 
 dependencies {
-    dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.8")
+    dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.5.0")
 }

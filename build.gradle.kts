@@ -3,14 +3,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
 plugins {
-    kotlin("jvm") version "1.7.20"
-    id("org.jetbrains.dokka") version "1.7.20"
+    kotlin("jvm") version "1.8.20"
+    id("org.jetbrains.dokka") version "1.8.20"
     `maven-publish`
     signing
 }
 
 group = "com.glureau"
-version = "0.4.8"
+version = "0.5.0"
 
 repositories {
     mavenCentral()
