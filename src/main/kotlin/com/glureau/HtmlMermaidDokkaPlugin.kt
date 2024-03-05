@@ -1,6 +1,5 @@
 package com.glureau
 
-import org.jetbrains.dokka.CoreExtensions
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.plugability.DokkaPlugin
 import org.jetbrains.dokka.plugability.DokkaPluginApiPreview
@@ -11,10 +10,10 @@ class HtmlMermaidDokkaPlugin : DokkaPlugin() {
 
     private val dokkaBase by lazy { plugin<DokkaBase>() }
 
-    val renderer by extending {
-        CoreExtensions.renderer providing { ctx ->
-            MermaidHtmlRenderer(ctx, configuration<HtmlMermaidDokkaPlugin, HtmlMermaidConfiguration>(ctx))
-        } override dokkaBase.htmlRenderer
+    val codeBlockRenderer by extending {
+        dokkaBase.htmlCodeBlockRenderers providing { ctx ->
+            MermaidHtmlRenderer(configuration<HtmlMermaidDokkaPlugin, HtmlMermaidConfiguration>(ctx))
+        }
     }
 
     val mermaidInstaller by extending {

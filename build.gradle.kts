@@ -1,10 +1,6 @@
-import org.gradle.api.plugins.internal.DefaultAdhocSoftwareComponent
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.net.URI
-
 plugins {
-    kotlin("jvm") version "1.9.10"
-    id("org.jetbrains.dokka") version "1.9.10"
+    kotlin("jvm") version "1.9.22"
+    id("org.jetbrains.dokka") version "1.9.20"
     `maven-publish`
     signing
 }
@@ -14,7 +10,6 @@ version = "0.6.0"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 val dokkaVersion: String by project
@@ -27,23 +22,16 @@ dependencies {
     testImplementation(kotlin("test-junit"))
     testImplementation("org.jetbrains.dokka:dokka-test-api:$dokkaVersion")
     testImplementation("org.jetbrains.dokka:dokka-base-test-utils:$dokkaVersion")
+    testImplementation("org.jsoup:jsoup:1.16.1")
 }
 
-val dokkaOutputDir = "$buildDir/dokka"
-
-tasks {
-    withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
-    }
-    dokkaHtml {
-        outputDirectory.set(file(dokkaOutputDir))
-    }
+kotlin {
+    jvmToolchain(8)
 }
 
 val javadocJar by tasks.registering(Jar::class) {
-    dependsOn(tasks.dokkaHtml)
+    from(tasks.dokkaHtml)
     archiveClassifier.set("javadoc")
-    from(dokkaOutputDir)
 }
 
 java {
@@ -58,8 +46,8 @@ java {
 task("mergeJs") {
     val dir = rootDir.path + "/src/main/js"
     File(rootDir.path + "/src/main/resources/dokka/dokka-mermaid.js").writeText(
-        File(dir + "/mermaid.min.js").readText() + "\n" +
-                File(dir + "/extras.js").readText()
+        File("$dir/mermaid.min.js").readText() + "\n" +
+                File("$dir/extras.js").readText()
     )
 }
 
@@ -68,7 +56,7 @@ publishing {
         val htmlMermaidDokkaPlugin by creating(MavenPublication::class) {
             artifactId = project.name
             from(components["java"])
-            artifact(javadocJar.get())
+            artifact(javadocJar)
 
             pom {
                 name.set("Mermaid Html Dokka plugin")
@@ -78,7 +66,7 @@ publishing {
                 licenses {
                     license {
                         name.set("The Apache Software License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
                         distribution.set("repo")
                     }
                 }
@@ -101,7 +89,7 @@ publishing {
 
     repositories {
         maven {
-            url = URI("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
                 username = System.getenv("SONATYPE_USER")
                 password = System.getenv("SONATYPE_PASSWORD")
