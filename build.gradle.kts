@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
 plugins {
-    kotlin("jvm") version "1.9.10"
-    id("org.jetbrains.dokka") version "1.9.10"
+    kotlin("jvm") version "1.9.22"
+    id("org.jetbrains.dokka") version "1.9.20"
     `maven-publish`
     signing
 }
@@ -27,6 +27,7 @@ dependencies {
     testImplementation(kotlin("test-junit"))
     testImplementation("org.jetbrains.dokka:dokka-test-api:$dokkaVersion")
     testImplementation("org.jetbrains.dokka:dokka-base-test-utils:$dokkaVersion")
+    testImplementation("org.jsoup:jsoup:1.16.1")
 }
 
 val dokkaOutputDir = "$buildDir/dokka"
