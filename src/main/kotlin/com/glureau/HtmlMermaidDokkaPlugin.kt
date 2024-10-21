@@ -25,11 +25,10 @@ class HtmlMermaidDokkaPlugin : DokkaPlugin() {
     }
 
     init {
-        println("Mermaid Plugin installed")
+        logger.info("Mermaid Plugin installed")
     }
 
     @DokkaPluginApiPreview
     override fun pluginApiPreviewAcknowledgement(): PluginApiPreviewAcknowledgement =
         PluginApiPreviewAcknowledgement
 }
-
